@@ -49,7 +49,7 @@ logger.debug(f"Received arguments: {ARGUMENTS}")
 # COPY FUNCTION FOR FILES
 def copy_file(file: Path, folder_path: Path, new_name: str) -> None:
     logger.debug(f"WORKING ON: {file.name}")
-    if ARGUMENTS["sremove"] == "yes":
+    if ARGUMENTS["sremove"].casefold() == "yes":
         shutil.move(file, folder_path / new_name)
     else:
         shutil.copy(file, folder_path / new_name)
@@ -222,7 +222,7 @@ def sort(args: tuple) -> tuple:
             unknown = "*files_without_suffix"
 
         # CHECKING IF USORT ENABLED, YES = SORTING, NO = RETURN FROM SORT FOR THIS UNKNOWN FILE
-        if ARGUMENTS["usort"] == "yes":
+        if ARGUMENTS["usort"].casefold() == "yes":
             folder_path = ARGUMENTS["destination"] / "unknown"
         else:
             file_list_per_category["unknown"].append(file.name)

@@ -27,7 +27,7 @@ parser.add_argument("-s", "--source", required=True, help="Source folder")
 SORTED_DEFAULT_PATH = Path(sys.argv[2]  + "/_SORTED")
 parser.add_argument("-d", "--destination", default=SORTED_DEFAULT_PATH)
 parser.add_argument("-r", "--sremove", default="no", help="Removes source folder and files during sorting if 'yes'") # description="Removes source folder and files during sorting if 'yes'"
-parser.add_argument("-u", "--usort", default="yes", help="Sorting unknown extension files during if 'yes'") # description="Sorting unknown extension files during if 'yes'"
+# parser.add_argument("-u", "--usort", default="yes", help="Sorting unknown extension files during if 'yes'") # description="Sorting unknown extension files during if 'yes'"
 ARGUMENTS = vars(parser.parse_args())
 ### END OF TRUE SETTINGS
 ### # TEMPORARY DEBUG SETTINGS START
@@ -50,7 +50,7 @@ extensions = []
 # COPY FUNCTION FOR FILES
 def copy_file(file: Path, folder_path: Path, new_name: str) -> None:
     logger.debug(f"COPY FILE: {file.name}")
-    if ARGUMENTS["sremove"] == "yes":
+    if ARGUMENTS["sremove"].casefold() == "yes":
         shutil.move(file, folder_path / new_name)
     else:
         shutil.copy(file, folder_path / new_name)
