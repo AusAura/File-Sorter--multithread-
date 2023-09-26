@@ -1,4 +1,4 @@
-from multiprocessing import Pool, current_process
+from multiprocessing import Pool, current_process, cpu_count
 from time import time
 import logging
 
@@ -47,7 +47,7 @@ if __name__ == '__main__':
     print("SYNC NUMBERS: ", result[0])
     sync_res = f"SYNC RESULT: {result[1]}"
 
-    with Pool(processes=4) as pool:
+    with Pool(processes=cpu_count()) as pool:
         timer = time()
         returned_dict = pool.map(factorize_multipr, numbers)
         for dict in returned_dict:
@@ -55,7 +55,7 @@ if __name__ == '__main__':
         print('ASYNC NUMBERS: ', perfect_numbers)
         delta_time = time() - timer
 
-    process4_async_res = f"ASYNC RESULT WITH 4 PROCESSES: {delta_time}"
+    process_async_res = f"ASYNC RESULT WITH {cpu_count()} PROCESSES: {delta_time}"
 
     print(sync_res)
-    print(process4_async_res)
+    print(process_async_res)
