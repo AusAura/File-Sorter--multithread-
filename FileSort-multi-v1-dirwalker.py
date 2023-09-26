@@ -1,6 +1,9 @@
+# Separate thread for every operation (0.2543790340423584). Updated 'legacy' version of the sorter.
+
 from pathlib import Path
 import argparse, re, shutil, logging, sys
 import concurrent.futures
+from time import time
 
 # LOGGER CONFIGS
 logger = logging.getLogger('DEBUG')
@@ -15,6 +18,8 @@ file_logger_handler.setLevel(logging.DEBUG)
 file_logger_handler.setFormatter(formatter_file)
 logger.addHandler(console_logger_handler)
 logger.addHandler(file_logger_handler)
+
+timer = time()
 
 ### ARGPARSE CONFIGS
 ### REQUEST REFERENCE: py FileSort-multi-v1-dirwalker.py -s C:\Users\Professional\Desktop\sort_test -r no
@@ -304,7 +309,7 @@ def main(folder_name: str) -> None:
 
     # UKNOWN FILE TYPES LIST
     logger.debug(" Uknown file types: {:^20}".format(", ".join(sort_unknown_list)))
-    logger.debug("COMPLETED")
+    logger.debug(f"COMPLETED in {time() - timer}")
 
 
 # EXECUTE

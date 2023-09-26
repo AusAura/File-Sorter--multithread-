@@ -1,4 +1,4 @@
-# Separate thread for each folder + for each file copy operation (0.0910041332244873)
+# Separate thread for each folder crawl + for all copy operation in 1 folder (0.12897872924804688)
 
 from pathlib import Path
 import argparse, shutil, logging, sys
@@ -20,7 +20,7 @@ logger.addHandler(console_logger_handler)
 logger.addHandler(file_logger_handler)
 
 ### ARGPARSE CONFIGS
-### REQUEST REFERENCE: py FileSort-multi-v2-crawlers.py -s C:\Users\Professional\Desktop\sort_test -r no
+### REQUEST REFERENCE: py FileSort-multi-v2-crawlers-v2.py -s C:\Users\Professional\Desktop\sort_test -r no
 ### TRUE CLI SETTINGS START
 parser = argparse.ArgumentParser()
 parser.add_argument("-s", "--source", required=True, help="Source folder")
@@ -69,7 +69,6 @@ def dir_list_crawler(path: Path):
 
 def file_xerox(path: Path):
     logger.debug(f'Looking for files in: {path}')
-    threads = []
     for el in path.iterdir():
         if el.is_file():
             logger.debug(f"Working with folders for file: {el.name}")
@@ -78,13 +77,7 @@ def file_xerox(path: Path):
             new_path.mkdir(exist_ok=True, parents=True)
             files.append(el)
             extensions.append(el.suffix)
-            th = Thread(target=copy_file, args=(el, new_path, new_path / el.name))
-            threads.append(th)
-            th.start()
-
-    return threads
-
-
+            copy_file(el, new_path, new_path / el.name)
 
 # MAIN FUNC
 def main(folder_name: str) -> None:
@@ -102,10 +95,9 @@ def main(folder_name: str) -> None:
 
     # VER2: CREATING A SEPARATED THREADS FOR FOLDER TO COPY FILES
     for folder in dir_list:
-        threads + file_xerox(folder)
-        # th = Thread(target=file_xerox, args=(folder,))
-        # th.start()
-        # threads.append(th)
+        th = Thread(target=file_xerox, args=(folder,))
+        th.start()
+        threads.append(th)
 
 
     # WAIT FOR ALL THREADS TO FINISH
