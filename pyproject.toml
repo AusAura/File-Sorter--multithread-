@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "file-sorter-multithread-"
+version = "0.1"
+description = "Updated version of the File Sorter that using separate threads for each sorted folder and for reading the directory tree structure."
+authors = ["AusAura <91804331+AusAura@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+argparse = "^1.4.0"
+pathlib = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
