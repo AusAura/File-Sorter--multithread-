@@ -2,7 +2,7 @@
 ## by Oleksandr Smyrnov
 
 ### Usage: run the script in CLI.
-### COMMAND EXAMPLE: py FileSort-multi-v1-dirwalker.py -s C:\Users\Professional\Desktop\sort_test -r no
+EXAMPLE: py FileSort-multi-v1-dirwalker.py -s C:\Users\Professional\Desktop\sort_test -r no
 
 # Summary:
 
